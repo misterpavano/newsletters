@@ -1,0 +1,52 @@
+{
+  "slug": "ai-news",
+  "name": "AI News",
+  "use_threads": true,
+  "rss_feeds": [
+    {
+      "key": "techcrunch",
+      "url": "https://techcrunch.com/feed/",
+      "source": "TechCrunch",
+      "limit": 5
+    },
+    {
+      "key": "verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "source": "The Verge",
+      "limit": 5
+    },
+    {
+      "key": "ars",
+      "url": "https://feeds.arstechnica.com/arstechnica/technology-lab",
+      "source": "Ars Technica",
+      "limit": 5
+    },
+    {
+      "key": "venturebeat",
+      "url": "https://feeds.feedburner.com/venturebeat/SZYF",
+      "source": "VentureBeat",
+      "limit": 5
+    },
+    {
+      "key": "mittr",
+      "url": "https://www.technologyreview.com/feed/",
+      "source": "MIT Tech Review",
+      "limit": 4
+    }
+  ],
+  "gemini": {
+    "sections": [
+      "model_releases",
+      "funding",
+      "research_papers",
+      "ai_policy"
+    ],
+    "prompt_template": "Today is {today}. I already have these AI/tech stories: {covered_summary}\n\nSearch for major AI news from today NOT already covered above. Focus on:\n- model_releases: new AI model launches, version releases, benchmark results today\n- funding: AI startup funding rounds, acquisitions, valuations today\n- research_papers: notable AI research papers or findings published today\n- ai_policy: AI regulation, government policy, safety announcements today\n\nDO NOT include URLs. Return JSON with 4 keys, each 2-3 story objects (title, summary 2 sentences, source, date):\n{\"model_releases\":[],\"funding\":[],\"research_papers\":[],\"ai_policy\":[]}\nReturn ONLY valid JSON."
+  },
+  "extras": [
+    {
+      "type": "github_trending",
+      "key": "github_trending"
+    }
+  ]
+}

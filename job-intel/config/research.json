@@ -1,0 +1,38 @@
+{
+  "slug": "job-intel",
+  "name": "Job Intel",
+  "scope": "Remote (US nationwide) + RTP/Raleigh NC local",
+  "target_roles": [
+    "AI Strategy / Transformation Consultant",
+    "Head of AI / VP of AI / Director of AI",
+    "Enterprise AI Solutions Engineer / Technical Account Manager",
+    "AI Product Manager",
+    "Field Delivery Engineer / AI Implementation Specialist",
+    "AI Solutions Architect"
+  ],
+  "rtp_companies": [
+    "SAS Institute", "Red Hat", "Cisco", "Lenovo North America", "Epic Games",
+    "Bandwidth", "Pendo", "MetLife", "Fidelity Investments", "NetApp",
+    "WillowTree", "UiPath", "IQVIA", "Syneos Health", "AvidXchange",
+    "Relay Payments", "Duke Health", "UNC Health", "IBM RTP"
+  ],
+  "ai_companies_national": [
+    "Anthropic", "OpenAI", "Cohere", "Mistral", "Scale AI", "Hugging Face",
+    "Salesforce AI", "Google DeepMind", "Microsoft AI", "Palantir",
+    "C3.ai", "DataStax", "Dataiku", "Weights & Biases", "Fractional AI"
+  ],
+  "consulting_firms": [
+    "Deloitte", "Accenture", "EY", "McKinsey", "Boston Consulting Group",
+    "Booz Allen Hamilton", "KPMG", "PwC", "Leidos"
+  ],
+  "job_boards": [
+    "linkedin.com/jobs",
+    "indeed.com",
+    "glassdoor.com",
+    "levels.fyi",
+    "wellfound.com",
+    "ycombinator.com/jobs"
+  ],
+  "deliver_to": "-1003812435266",
+  "publish_repo": "job-intel"
+}

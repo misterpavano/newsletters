@@ -1,0 +1,15 @@
+{
+  "slug": "mandy-intel",
+  "name": "Mandy Intel",
+  "skip_terms": ["meghan markle", "prince harry", "rape", "sexual assault", "child abuse", "molestation", "sex crime", "shooting suspect"],
+  "rss_feeds": [
+    {"key": "pagesix",      "url": "https://pagesix.com/feed/",                                                          "source": "Page Six",     "limit": 5},
+    {"key": "tmz",          "url": "https://www.tmz.com/rss.xml",                                                        "source": "TMZ",          "limit": 5},
+    {"key": "hollywoodlife","url": "https://www.hollywoodlife.com/feed/",                                                 "source": "HollywoodLife","limit": 5},
+    {"key": "eonline",      "url": "https://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml",                  "source": "E! Online",    "limit": 5}
+  ],
+  "gemini": {
+    "sections": ["reality_tv", "music_film"],
+    "prompt_template": "Today is {today}. I already have these celebrity news stories from RSS feeds: {covered_summary}\n\nSearch for celebrity and entertainment news from today that is NOT already covered above.\nFocus on these topics that RSS feeds tend to miss:\n- reality_tv: Real Housewives, Bravo shows, Bachelor/Bachelorette drama, Love Island\n- music_film: new album/song releases, movie news, award shows, box office\n\nDO NOT include URLs. Return JSON with 2 keys, each 3 story objects (title, summary 2 sentences, source, date):\n{\"reality_tv\":[],\"music_film\":[]}\nReturn ONLY valid JSON. No Meghan Markle."
+  }
+}

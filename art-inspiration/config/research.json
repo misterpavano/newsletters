@@ -1,0 +1,16 @@
+{
+  "slug": "art-inspiration",
+  "name": "Art Inspiration",
+  "skip_terms": ["best ai generator", "top 10 ai tools", "vs runway", "vs kling", "vs sora", "review 2026", "which ai is best"],
+  "rss_feeds": [
+    {"key": "hyperallergic", "url": "https://hyperallergic.com/rss/",             "source": "Hyperallergic",  "limit": 4},
+    {"key": "colossal",      "url": "https://www.thisiscolossal.com/feed/",        "source": "Colossal",       "limit": 4},
+    {"key": "creativeboom",  "url": "https://www.creativeboom.com/feed/",          "source": "Creative Boom",  "limit": 4},
+    {"key": "uxdesign",      "url": "https://uxdesign.cc/feed",                    "source": "UX Collective",  "limit": 4},
+    {"key": "abduzeedo",     "url": "https://abduzeedo.com/rss.xml",               "source": "Abduzeedo",      "limit": 3}
+  ],
+  "gemini": {
+    "sections": ["painting_studio", "creative_mind", "tech_art", "ux_interface"],
+    "prompt_template": "Today is {today}. I already have these art and design stories from RSS feeds: {covered_summary}\n\nSearch for creative inspiration from today or this week that is NOT already covered above. Be specific and editorial — no listicles, no tool comparison articles, no auction price news.\n\nFocus on exactly these four areas:\n- painting_studio: working painters and their practice — artist spotlights, painting techniques, studio process, exhibition reviews with real artistic depth, what painters are making right now\n- creative_mind: how artists think — creative process essays, artist interviews, psychology of creativity, the mental and emotional side of making things, creative block, craft and discipline\n- tech_art: where technology genuinely intersects art — generative and computational art worth knowing, creative coding, AI art that is artistically interesting (not tool reviews or comparisons)\n- ux_interface: notable UX/UI design work, interface patterns worth studying, design systems, typography in use, visual direction — real work and real decisions, not theory\n\nDO NOT include URLs. Return JSON with 4 keys, each with 2-3 story objects (title, summary in 2 sentences, source name, date):\n{\"painting_studio\":[],\"creative_mind\":[],\"tech_art\":[],\"ux_interface\":[]}\nReturn ONLY valid JSON. No markdown."
+  }
+}

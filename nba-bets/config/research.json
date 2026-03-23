@@ -1,0 +1,18 @@
+{
+  "slug": "nba-bets",
+  "name": "NBA Bets",
+  "notes": "Research is handled by nba-bets-research.py (nba_api + ESPN) — not the shared research.py module. This config is for documentation purposes.",
+  "data_sources": {
+    "espn_scoreboard": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
+    "espn_injuries": "https://www.espn.com/nba/injuries",
+    "nba_api": ["leaguedashteamstats", "leaguedashplayerstats", "leaguedashptteamdefend", "playerdashboardbygeneralsplits"]
+  },
+  "signal_sources": [
+    "covers.com",
+    "actionnetwork.com",
+    "thelines.com",
+    "rotowire.com"
+  ],
+  "build_script": "nba-bets/scripts/research.py",
+  "output_key": "nba-bets"
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "world-happenings",
+  "name": "World Happenings",
+  "use_threads": true,
+  "rss_feeds": [
+    {"key": "bbc_world", "url": "https://feeds.bbci.co.uk/news/world/rss.xml",               "source": "BBC World",        "limit": 5},
+    {"key": "bbc_us",    "url": "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml", "source": "BBC US",           "limit": 5},
+    {"key": "npr",       "url": "https://feeds.npr.org/1001/rss.xml",                        "source": "NPR News",         "limit": 5},
+    {"key": "nyt",       "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "source": "NY Times",         "limit": 5}
+  ],
+  "gemini": {
+    "sections": ["conflict", "economy", "climate", "health"],
+    "prompt_template": "Today is {today}. I already have these world news stories: {covered_summary}\n\nSearch for major world news today NOT already covered. Focus on:\n- conflict: wars armed conflict military operations geopolitics today\n- economy: global economy trade tariffs inflation central bank decisions today\n- climate: climate change extreme weather environmental news today\n- health: global health pandemic disease outbreak WHO news today\n\nDO NOT include URLs. Return JSON with 4 keys, each 2-3 story objects (title, summary 2 sentences, source, date):\n{\"conflict\":[],\"economy\":[],\"climate\":[],\"health\":[]}\nReturn ONLY valid JSON."
+  }
+}

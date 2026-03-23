@@ -1,0 +1,22 @@
+{
+  "slug": "pavano-trades",
+  "name": "Pavano Trades",
+  "notes": "Research pulls live portfolio state from Alpaca paper API. Weekdays only.",
+  "data_sources": {
+    "alpaca": {
+      "endpoint": "https://paper-api.alpaca.markets/v2",
+      "credentials": "~/.secrets (ALPACA_KEY / ALPACA_SECRET)"
+    },
+    "signals": "~/scripts/signals-output.json"
+  },
+  "rss_feeds": [
+    {"key": "marketwatch", "url": "https://feeds.marketwatch.com/marketwatch/topstories/", "source": "MarketWatch", "limit": 4},
+    {"key": "reuters_finance", "url": "https://feeds.reuters.com/reuters/businessNews", "source": "Reuters", "limit": 4}
+  ],
+  "gemini": {
+    "sections": ["market_context", "options_education"],
+    "prompt_template": "Today is {today}. Search for:\n- market_context: 2-3 major market-moving events today (Fed, earnings, macro)\n- options_education: 1 clear plain-English concept about options trading relevant to current market conditions\n\nReturn JSON: {\"market_context\":[],\"options_education\":[]}\nEach item: title, summary (2 sentences), source, date. Return ONLY valid JSON."
+  },
+  "build_script": "pavano-trades/scripts/research.py",
+  "schedule": "weekdays only"
+}
