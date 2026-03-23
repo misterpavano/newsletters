@@ -1,0 +1,16 @@
+{
+  "slug": "mandy-intel",
+  "name": "Mandy Intel",
+  "tagline": "Pop culture, served fresh",
+  "audience": "Mandy",
+  "tone": "Gen Z energy, fun, opinionated",
+  "delivery": {
+    "telegram_group": "-1003710768958",
+    "github_pages_repo": "misterpavano/mandy-intel"
+  },
+  "schedule": {
+    "research": "4:00am",
+    "build": "7:15am"
+  },
+  "design": "bento grid, hot pink/lime/blue, Bricolage Grotesque, neobrutalism"
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "nba-bets",
+  "name": "NBA Bets",
+  "tagline": "Sharp picks, live data, no fluff",
+  "audience": "Wally + NBA betting group",
+  "tone": "confident, data-driven, direct",
+  "delivery": {
+    "telegram_group": "-5206093346",
+    "github_pages_repo": "misterpavano/nba-bets"
+  },
+  "schedule": {
+    "research": "5:00am",
+    "build": "11:00am"
+  },
+  "notes": "Late build intentional — captures morning injury reports and line movement"
+}

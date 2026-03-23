@@ -1,0 +1,16 @@
+{
+  "slug": "job-intel",
+  "name": "Job Intel",
+  "tagline": "AI job leads, curated daily",
+  "audience": "Wally",
+  "tone": "practical, actionable, no noise",
+  "delivery": {
+    "telegram_group": null,
+    "github_pages_repo": "misterpavano/job-intel"
+  },
+  "schedule": {
+    "research": "5:00am",
+    "build": "TBD"
+  },
+  "status": "built, not yet on cron — needs schedule decision"
+}

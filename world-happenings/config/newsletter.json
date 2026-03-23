@@ -1,0 +1,15 @@
+{
+  "slug": "world-happenings",
+  "name": "World Happenings",
+  "tagline": "The world, every morning",
+  "audience": "Wally + general news followers",
+  "tone": "clear, factual, no spin",
+  "delivery": {
+    "telegram_group": "-5283070369",
+    "github_pages_repo": "misterpavano/world-happenings"
+  },
+  "schedule": {
+    "research": "4:00am",
+    "build": "7:00am"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "art-inspiration",
+  "name": "Art Inspiration",
+  "tagline": "Daily creative fuel",
+  "audience": "Art Inspiration group",
+  "tone": "visual, evocative, minimal text",
+  "delivery": {
+    "telegram_group": "-1003519302207",
+    "github_pages_repo": "misterpavano/art-inspiration"
+  },
+  "schedule": {
+    "research": "5:00am",
+    "build": "9:00am"
+  }
+}

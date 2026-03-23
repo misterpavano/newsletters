@@ -1,0 +1,16 @@
+{
+  "slug": "pavano-trades",
+  "name": "Pavano Trades",
+  "tagline": "Options flow, signals, portfolio recap",
+  "audience": "Wally — trading accountability",
+  "tone": "analytical, plain English, no sugar-coating",
+  "delivery": {
+    "telegram_group": "-5191423233",
+    "github_pages_repo": "misterpavano/pavano-trades"
+  },
+  "schedule": {
+    "research": "5:00am",
+    "build": "8:30am"
+  },
+  "notes": "Weekdays only. Pulls live portfolio state from Alpaca paper account."
+}

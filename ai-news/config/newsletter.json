@@ -1,0 +1,15 @@
+{
+  "slug": "ai-news",
+  "name": "AI News",
+  "tagline": "Your daily AI intelligence brief",
+  "audience": "Wally + anyone tracking the AI industry",
+  "tone": "sharp, technical, no hype",
+  "delivery": {
+    "telegram_group": "-5108093721",
+    "github_pages_repo": "misterpavano/ai-news"
+  },
+  "schedule": {
+    "research": "4:00am",
+    "build": "7:00am"
+  }
+}
