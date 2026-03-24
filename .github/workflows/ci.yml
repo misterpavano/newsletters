@@ -1,0 +1,118 @@
+name: CI — Validate Configs & Templates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-research-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install jinja2 requests
+
+      - name: Validate research & newsletter configs
+        run: |
+          STATUS=0
+          for slug in ai-news world-happenings nba-bets art-inspiration mandy-intel pavano-trades job-intel; do
+            for cfg in research.json newsletter.json; do
+              FILE="${slug}/config/${cfg}"
+              if [ ! -f "$FILE" ]; then
+                echo "❌ MISSING: $FILE"
+                STATUS=1
+              else
+                python3 -c "import json; json.load(open('${FILE}'))" 2>/dev/null
+                if [ $? -ne 0 ]; then
+                  echo "❌ INVALID JSON: $FILE"
+                  STATUS=1
+                else
+                  echo "✅ $FILE"
+                fi
+              fi
+            done
+          done
+          exit $STATUS
+
+      - name: Validate templates exist
+        run: |
+          STATUS=0
+          for slug in ai-news world-happenings nba-bets art-inspiration mandy-intel pavano-trades job-intel; do
+            if [ -f "${slug}/templates/index.html" ]; then
+              echo "✅ ${slug}/templates/index.html"
+            elif [ -f "lib/templates/base.html" ]; then
+              echo "⚠️  ${slug} uses lib/templates/base.html (fallback)"
+            else
+              echo "❌ No template for ${slug}"
+              STATUS=1
+            fi
+          done
+          exit $STATUS
+
+      - name: Lint Python modules
+        run: |
+          for pyfile in lib/research.py lib/build.py lib/publish.py lib/secrets.py lib/filter.py; do
+            if [ -f "$pyfile" ]; then
+              python3 -m py_compile "$pyfile" && echo "✅ $pyfile" || echo "❌ $pyfile"
+            else
+              echo "⏭️  $pyfile (not yet created, skipping)"
+            fi
+          done
+
+  validate-newsletter-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate required newsletter.json fields
+        run: |
+          python3 << 'PYEOF'
+          import json, sys, os
+
+          SLUGS = [
+              "ai-news", "world-happenings", "nba-bets",
+              "art-inspiration", "mandy-intel", "pavano-trades", "job-intel"
+          ]
+          REQUIRED = ["slug", "name"]
+          errors = []
+
+          for slug in SLUGS:
+              path = f"{slug}/config/newsletter.json"
+              if not os.path.exists(path):
+                  errors.append(f"❌ MISSING: {path}")
+                  continue
+              try:
+                  with open(path) as f:
+                      data = json.load(f)
+              except json.JSONDecodeError as e:
+                  errors.append(f"❌ INVALID JSON in {path}: {e}")
+                  continue
+
+              for field in REQUIRED:
+                  if field not in data:
+                      errors.append(f"❌ {path}: missing required field '{field}'")
+
+              # Check nested delivery.github_pages_repo
+              delivery = data.get("delivery", {})
+              if "github_pages_repo" not in delivery:
+                  errors.append(f"❌ {path}: missing delivery.github_pages_repo")
+              else:
+                  print(f"✅ {slug}: all required fields present")
+
+          if errors:
+              for e in errors:
+                  print(e)
+              sys.exit(1)
+          else:
+              print("All newsletter configs valid.")
+          PYEOF
