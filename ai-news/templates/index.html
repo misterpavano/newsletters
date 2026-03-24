@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #b0b0b0;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .header {
+    border-bottom: 1px solid #1a3a1a;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    color: #00ff41;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .header .tagline {
+    color: #4a7a4a;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .header .meta {
+    color: #3a5a3a;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    color: #00ff41;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-transform: lowercase;
+  }
+  .section-header::before {
+    content: '> ';
+    color: #4a7a4a;
+  }
+  .section-header::after {
+    content: '_';
+    animation: blink 1.2s step-end infinite;
+    color: #00ff41;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  .story {
+    border-left: 2px solid #1a3a1a;
+    padding: 12px 0 12px 16px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .story:hover {
+    border-left-color: #00ff41;
+  }
+  .story-title a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .story-title a:hover {
+    color: #00ff41;
+  }
+  .story-meta {
+    color: #4a6a4a;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  .story-meta .source {
+    color: #00ff41;
+    opacity: 0.6;
+  }
+  .story-summary {
+    color: #8a8a8a;
+    font-size: 13px;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  /* GitHub trending special treatment */
+  .repo-card {
+    border: 1px solid #1a3a1a;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    background: #0d0d0d;
+  }
+  .repo-card:hover {
+    border-color: #00ff41;
+  }
+  .repo-card .repo-name a {
+    color: #00ff41;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .repo-card .repo-desc {
+    color: #7a7a7a;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .repo-card .repo-stars {
+    color: #4a7a4a;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .repo-card .repo-stars::before {
+    content: '★ ';
+    color: #00ff41;
+  }
+  .footer {
+    border-top: 1px solid #1a3a1a;
+    padding-top: 20px;
+    margin-top: 40px;
+    color: #3a5a3a;
+    font-size: 11px;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .header h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{ newsletter.name }}</h1>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }} // built {{ build_time }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section">
+    <div class="section-header">{{ section_name | replace(' ', '_') | lower }}</div>
+
+    {% if 'github' in section_name|lower or 'trending' in section_name|lower or 'repo' in section_name|lower %}
+      {% for story in stories %}
+      <div class="repo-card">
+        <div class="repo-name"><a href="{{ story.url }}">{{ story.title }}</a></div>
+        {% if story.summary %}<div class="repo-desc">{{ story.summary }}</div>{% endif %}
+        <div class="repo-stars">{{ story.source }}{% if story.date %} &middot; {{ story.date }}{% endif %}</div>
+      </div>
+      {% endfor %}
+    {% else %}
+      {% for story in stories %}
+      <div class="story">
+        <div class="story-title"><a href="{{ story.url }}">{{ story.title }}</a></div>
+        <div class="story-meta">
+          <span class="source">[{{ story.source }}]</span>
+          {% if story.date %}&middot; {{ story.date }}{% endif %}
+        </div>
+        {% if story.summary %}<div class="story-summary">{{ story.summary }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <p>{{ newsletter.name }} &mdash; {{ newsletter.tagline }}</p>
+    <p>end_of_transmission</p>
+  </div>
+</div>
+</body>
+</html>

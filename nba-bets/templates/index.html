@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111111;
+    color: #e0e0e0;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .header {
+    text-align: center;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    border-bottom: 3px solid #f97316;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .header .tagline {
+    color: #f97316;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .header .meta {
+    color: #666666;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-header h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f97316;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #2a2a2a;
+  }
+  .game-card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-left: 3px solid #f97316;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .game-card:hover {
+    border-left-color: #fb923c;
+    background: #1e1e1e;
+  }
+  .game-title a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .game-title a:hover {
+    color: #f97316;
+  }
+  .game-meta {
+    font-size: 12px;
+    color: #777777;
+    margin-top: 4px;
+  }
+  .game-meta .source {
+    color: #f97316;
+    font-weight: 600;
+  }
+  .game-summary {
+    color: #b0b0b0;
+    font-size: 14px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  /* Injury/status indicator */
+  .status-out { color: #ef4444; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+  .status-gtd { color: #eab308; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+  .status-probable { color: #22c55e; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+  /* Picks section prominence */
+  .picks .game-card {
+    border-left-width: 4px;
+    background: #1c1708;
+    border-color: #f97316;
+  }
+  .pick-confidence {
+    display: inline-block;
+    background: #f97316;
+    color: #000000;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .footer {
+    border-top: 2px solid #2a2a2a;
+    padding-top: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #555555;
+  }
+  .footer .brand {
+    color: #f97316;
+    font-weight: 700;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .header h1 { font-size: 22px; }
+    .game-card { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{ newsletter.name }}</h1>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }} &bull; Built {{ build_time }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section{% if 'pick' in section_name|lower %} picks{% endif %}">
+    <div class="section-header">
+      <h2>{{ section_name }}</h2>
+    </div>
+    {% for story in stories %}
+    <div class="game-card">
+      <div class="game-title"><a href="{{ story.url }}">{{ story.title }}</a></div>
+      <div class="game-meta">
+        <span class="source">{{ story.source }}</span>
+        {% if story.date %}&middot; {{ story.date }}{% endif %}
+      </div>
+      {% if story.summary %}<div class="game-summary">{{ story.summary }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <p><span class="brand">{{ newsletter.name }}</span> &mdash; {{ newsletter.tagline }}</p>
+    <p>{{ date }}</p>
+  </div>
+</div>
+</body>
+</html>

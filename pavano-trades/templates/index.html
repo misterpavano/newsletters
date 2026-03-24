@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #d4d4d4;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  }
+  .container {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .header {
+    border-bottom: 1px solid #1a2a35;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .header h1 span {
+    color: #06b6d4;
+  }
+  .header .tagline {
+    color: #06b6d4;
+    font-size: 12px;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+  .header .meta {
+    color: #555555;
+    font-size: 11px;
+    margin-top: 8px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #162028;
+  }
+  .section-header h2 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #06b6d4;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .trade-row {
+    background: #0e1418;
+    border: 1px solid #162028;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+  }
+  .trade-row:hover {
+    border-color: #06b6d4;
+  }
+  .trade-title a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .trade-title a:hover {
+    color: #06b6d4;
+  }
+  .trade-meta {
+    font-size: 11px;
+    color: #666666;
+    margin-top: 4px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .trade-meta .source {
+    color: #06b6d4;
+    opacity: 0.7;
+  }
+  .trade-summary {
+    color: #999999;
+    font-size: 13px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  /* Portfolio table */
+  .portfolio-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .portfolio-table th {
+    text-align: left;
+    color: #06b6d4;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #1a2a35;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .portfolio-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #111a22;
+    color: #b0b0b0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+  }
+  .portfolio-table tr:hover td {
+    background: #0e1418;
+  }
+  .positive { color: #22c55e; }
+  .negative { color: #ef4444; }
+  .ticker {
+    color: #ffffff;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .footer {
+    border-top: 1px solid #1a2a35;
+    padding-top: 20px;
+    margin-top: 40px;
+    font-size: 11px;
+    color: #444444;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+  }
+  .footer .brand {
+    color: #06b6d4;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px; }
+    .header h1 { font-size: 18px; }
+    .portfolio-table { font-size: 11px; }
+    .portfolio-table th, .portfolio-table td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1><span>&gt;</span> {{ newsletter.name }}</h1>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }} | {{ build_time }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section">
+    <div class="section-header">
+      <h2>{{ section_name }}</h2>
+    </div>
+
+    {% if 'portfolio' in section_name|lower or 'position' in section_name|lower %}
+    <table class="portfolio-table">
+      <thead>
+        <tr>
+          <th>Position</th>
+          <th>Source</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for story in stories %}
+        <tr>
+          <td><a href="{{ story.url }}" style="color:#ffffff;text-decoration:none;">{{ story.title }}</a></td>
+          <td>{{ story.source }}</td>
+          <td>{{ story.date }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      {% for story in stories %}
+      <div class="trade-row">
+        <div class="trade-title"><a href="{{ story.url }}">{{ story.title }}</a></div>
+        <div class="trade-meta">
+          <span class="source">{{ story.source }}</span>
+          {% if story.date %} | {{ story.date }}{% endif %}
+        </div>
+        {% if story.summary %}<div class="trade-summary">{{ story.summary }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <p><span class="brand">{{ newsletter.name }}</span> | {{ newsletter.tagline }}</p>
+    <p>Paper account. Not financial advice.</p>
+  </div>
+</div>
+</body>
+</html>

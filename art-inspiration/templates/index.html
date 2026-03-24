@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f0f0f;
+    color: #f5f0eb;
+    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
+    font-size: 15px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 400;
+    color: #f5f0eb;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+  .header .rule {
+    width: 40px;
+    height: 1px;
+    background: #c9a84c;
+    margin: 16px auto;
+  }
+  .header .tagline {
+    font-size: 13px;
+    color: #8a8278;
+    font-style: italic;
+  }
+  .header .meta {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    color: #5a5650;
+    margin-top: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #c9a84c;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1e1d1b;
+  }
+  .exhibit {
+    padding: 20px 0;
+    border-bottom: 1px solid #1a1918;
+  }
+  .exhibit:last-child {
+    border-bottom: none;
+  }
+  .exhibit-title a {
+    color: #f5f0eb;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .exhibit-title a:hover {
+    color: #c9a84c;
+  }
+  .exhibit-provenance {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: #6a6560;
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+  .exhibit-provenance .source {
+    color: #c9a84c;
+    opacity: 0.7;
+  }
+  .exhibit-note {
+    color: #a09888;
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .footer {
+    margin-top: 56px;
+    text-align: center;
+  }
+  .footer .rule {
+    width: 40px;
+    height: 1px;
+    background: #c9a84c;
+    margin: 0 auto 16px;
+  }
+  .footer p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    color: #4a4640;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 32px 20px; }
+    .header h1 { font-size: 20px; letter-spacing: 4px; }
+    .exhibit-title a { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{ newsletter.name }}</h1>
+    <div class="rule"></div>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section">
+    <div class="section-label">{{ section_name }}</div>
+    {% for story in stories %}
+    <div class="exhibit">
+      <div class="exhibit-title"><a href="{{ story.url }}">{{ story.title }}</a></div>
+      <div class="exhibit-provenance">
+        <span class="source">{{ story.source }}</span>
+        {% if story.date %}&middot; {{ story.date }}{% endif %}
+      </div>
+      {% if story.summary %}<div class="exhibit-note">{{ story.summary }}</div>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <div class="rule"></div>
+    <p>{{ newsletter.name }} &mdash; {{ date }}</p>
+  </div>
+</div>
+</body>
+</html>

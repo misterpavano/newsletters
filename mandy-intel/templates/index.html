@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111111;
+    color: #f0f0f0;
+    font-family: 'Bricolage Grotesque', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px;
+  }
+  .header {
+    background: #ff2d78;
+    color: #000000;
+    padding: 24px 28px;
+    border: 3px solid #000000;
+    box-shadow: 6px 6px 0 #000000;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  .header .tagline {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+  .header .meta {
+    font-size: 12px;
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+  .section {
+    margin-bottom: 32px;
+  }
+  .section-header {
+    display: inline-block;
+    background: #b8ff57;
+    color: #000000;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0 #000000;
+    margin-bottom: 16px;
+  }
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .bento-card {
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    padding: 18px 16px;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .bento-card:hover {
+    border-color: #ff2d78;
+    box-shadow: 4px 4px 0 #ff2d78;
+    transform: translate(-2px, -2px);
+  }
+  .bento-card:nth-child(3n+1) {
+    grid-column: span 2;
+    border-color: #4361ee;
+  }
+  .bento-card:nth-child(3n+1):hover {
+    border-color: #b8ff57;
+    box-shadow: 4px 4px 0 #b8ff57;
+  }
+  .card-title a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  .card-title a:hover {
+    color: #ff2d78;
+  }
+  .bento-card:nth-child(3n+1) .card-title a {
+    font-size: 18px;
+  }
+  .card-meta {
+    font-size: 11px;
+    color: #888888;
+    margin-top: 6px;
+  }
+  .card-meta .source {
+    color: #b8ff57;
+    font-weight: 600;
+  }
+  .card-summary {
+    color: #b0b0b0;
+    font-size: 13px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+  .footer {
+    margin-top: 40px;
+    padding: 16px 20px;
+    background: #4361ee;
+    border: 2px solid #000000;
+    box-shadow: 4px 4px 0 #000000;
+    text-align: center;
+  }
+  .footer p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px; }
+    .header { padding: 20px 22px; }
+    .header h1 { font-size: 24px; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-card:nth-child(3n+1) { grid-column: span 1; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{ newsletter.name }}</h1>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section">
+    <div class="section-header">{{ section_name }}</div>
+    <div class="bento-grid">
+      {% for story in stories %}
+      <div class="bento-card">
+        <div class="card-title"><a href="{{ story.url }}">{{ story.title }}</a></div>
+        <div class="card-meta">
+          <span class="source">{{ story.source }}</span>
+          {% if story.date %}&middot; {{ story.date }}{% endif %}
+        </div>
+        {% if story.summary %}<div class="card-summary">{{ story.summary }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <p>{{ newsletter.name }} &bull; {{ date }} &bull; made with &#x1F49C;</p>
+  </div>
+</div>
+</body>
+</html>

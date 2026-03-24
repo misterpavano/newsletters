@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ newsletter.name }} — {{ date }}</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111827;
+    color: #e5e7eb;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 36px 20px;
+  }
+  .header {
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid #6366f1;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .header .tagline {
+    color: #6366f1;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .header .meta {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-header h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6366f1;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1f2937;
+  }
+  .job-card {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .job-card:hover {
+    border-color: #6366f1;
+  }
+  .job-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+  .job-company {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 4px;
+  }
+  .job-company .source {
+    color: #6366f1;
+    font-weight: 600;
+  }
+  .job-summary {
+    color: #d1d5db;
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .job-cta {
+    display: inline-block;
+    margin-top: 12px;
+    color: #ffffff;
+    background: #6366f1;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  .job-cta:hover {
+    background: #818cf8;
+  }
+  .footer {
+    border-top: 1px solid #1f2937;
+    padding-top: 20px;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .footer .brand {
+    color: #6366f1;
+    font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 24px 16px; }
+    .header h1 { font-size: 20px; }
+    .job-title { font-size: 16px; }
+    .job-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>{{ newsletter.name }}</h1>
+    <div class="tagline">{{ newsletter.tagline }}</div>
+    <div class="meta">{{ date }} &bull; Built {{ build_time }}</div>
+  </div>
+
+  {% for section_name, stories in sections.items() %}
+  <div class="section">
+    <div class="section-header">
+      <h2>{{ section_name }}</h2>
+    </div>
+    {% for story in stories %}
+    <div class="job-card">
+      <div class="job-title">{{ story.title }}</div>
+      <div class="job-company">
+        <span class="source">{{ story.source }}</span>
+        {% if story.date %}&middot; {{ story.date }}{% endif %}
+      </div>
+      {% if story.summary %}<div class="job-summary">{{ story.summary }}</div>{% endif %}
+      <a href="{{ story.url }}" class="job-cta">View Role &rarr;</a>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div class="footer">
+    <p><span class="brand">{{ newsletter.name }}</span> &mdash; {{ newsletter.tagline }}</p>
+    <p>{{ date }}</p>
+  </div>
+</div>
+</body>
+</html>
